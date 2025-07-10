@@ -1,0 +1,117 @@
+Awesome Rajesh! Let's now dig deep into how functions work internally in Python. You’ll learn what happens when you define, call, and return from a function — all the inner machinery of the Python interpreter.
+✅ 1. When You Define a Function
+
+def greet(name):
+    return "Hello " + name
+
+🔍 Internally:
+
+    Python creates a function object and stores it in memory.
+
+    The function name greet becomes a reference to that object in the current namespace.
+
+💡 It does NOT execute the function yet. It just stores it.
+
+You can confirm this:
+
+print(greet)  # <function greet at 0x...>
+
+✅ 2. When You Call a Function
+
+greet("Rajesh")
+
+Now the real magic begins.
+🔸 Step-by-Step Process:
+🧠 Step 1: Create a New Stack Frame
+
+    Python creates a new local environment (called a stack frame) just for this function call.
+
+    This frame contains:
+
+        Arguments passed to the function (name = "Rajesh")
+
+        Local variables (if any)
+
+        Return address (where to go back after function finishes)
+
+🧠 Step 2: Bind Arguments
+
+    Python binds "Rajesh" to the parameter name inside the function’s frame.
+
+🧠 Step 3: Execute Code Line-by-Line
+
+    Python executes the function’s code line-by-line within its local scope.
+
+🧠 Step 4: Return Result
+
+    When it hits the return statement:
+
+        It sends the value back to the caller.
+
+        The stack frame is destroyed (memory is released).
+
+        Control goes back to the line after the function call.
+
+✅ 3. What Lives Inside a Function Object?
+
+You can inspect a function like this:
+
+def test(a): return a + 1
+
+print(dir(test))
+
+Key attributes:
+
+    __code__ – holds compiled bytecode
+
+    __defaults__ – default argument values
+
+    __globals__ – global namespace
+
+    __name__ – function name
+
+    __doc__ – docstring
+
+print(test.__code__.co_varnames)   # ('a',)
+print(test.__code__.co_argcount)   # 1
+
+🧠 What Happens in Memory (Visualized)
+
+# At definition:
+def add(x, y): return x + y
+# → Creates function object → stored in memory
+# → 'add' points to that function object
+
+# At call:
+result = add(5, 7)
+# → New frame created
+# → x=5, y=7 assigned
+# → code executes
+# → returns 12
+# → frame destroyed
+
+📌 Summary Table
+Step	What Happens
+Function Defined	Function object created and assigned to a name
+Function Called	Stack frame created, arguments assigned
+Code Executes	Line-by-line in the function's local scope
+Return Statement	Value sent back, frame destroyed
+🔍 Bonus: Closures and Inner Functions
+
+Python functions can be nested and return other functions. This leads to:
+🌀 Closure Example:
+
+def outer(x):
+    def inner(y):
+        return x + y
+    return inner
+
+f = outer(10)
+print(f(5))  # 15
+
+Here:
+
+    inner() uses x even though it's not in its own scope.
+
+    Python remembers the value of x — this is a closure.
+    

@@ -1,0 +1,99 @@
+✅ 1. How Memory Management Works in Python
+
+Python handles memory using a private heap managed by the Python Memory Manager. You don’t need to allocate or free memory manually like in C/C++.
+🔍 Key Concepts:
+
+    Private Heap: All Python objects and data structures live in a space called the “heap”. This is managed internally.
+
+    Memory Manager: Allocates memory blocks for objects and variables.
+
+    Object-specific Allocators: Built-in types like lists, dicts, etc., have optimized memory management internally.
+
+💡 Example:
+
+x = 100
+
+Here’s what happens:
+
+    Memory is allocated for the integer 100 in the heap.
+
+    A reference (a pointer) to that memory is assigned to variable x.
+
+✅ 2. How Variables Are Stored (Name Binding)
+
+In Python, variables are just labels that point to objects in memory. Variables don’t hold values directly like in C — they reference objects.
+🔁 Python = Name ➡️ Object Mapping
+
+When you do:
+
+x = "Rajesh"
+
+Internally:
+
+    "Rajesh" is stored as a string object in memory.
+
+    x is added to the namespace (a dictionary) with a reference to that object.
+
+🧠 Example:
+
+a = 500
+b = 500
+print(a is b)  # True for small ints (because of interning), might be False for larger
+
+Python reuses some immutable objects (like small integers, strings) to save memory.
+🔍 Variable Scope:
+
+Variables live in namespaces:
+
+    Local (inside function)
+
+    Global (at module level)
+
+    Built-in (Python’s standard names)
+
+Use globals() and locals() to see them!
+✅ 3. How Garbage Collection Works in Python
+
+Python uses automatic garbage collection to free memory.
+🔄 Two Mechanisms:
+🔸 a) Reference Counting
+
+    Every object keeps track of how many references (variables) point to it.
+
+    When reference count hits 0 → memory is reclaimed.
+
+Example:
+
+a = [1, 2, 3]
+b = a  # ref count = 2
+del a  # ref count = 1
+del b  # ref count = 0 → object deleted
+
+🔸 b) Cyclic Garbage Collector
+
+    Detects reference cycles (e.g., objects referring to each other)
+
+    Periodically runs to clean them.
+
+import gc
+gc.collect()  # Forces a garbage collection pass
+
+You can even see tracked objects with gc.get_objects()!
+🔐 Why You Rarely See It?
+
+Because Python handles all this automatically — unless you're doing very performance-critical or memory-sensitive work.
+🧪 Example: Memory Address and Ref Count
+
+import sys
+
+x = "hello"
+print(id(x))              # Memory address
+print(sys.getrefcount(x)) # Reference count
+
+📌 Summary Table
+Concept	What Happens
+Variable assignment	Name points to object in memory
+Memory allocation	Done on Python's private heap
+Reference counting	Tracks how many names refer to an object
+Garbage collection	Removes objects with zero references or cycles
+Variable scope	Managed using namespaces (local, global, built-in)

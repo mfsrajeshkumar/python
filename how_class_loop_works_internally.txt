@@ -1,0 +1,145 @@
+✅ Part 1: How Classes and Objects Work Internally in Python
+🧠 First, What Is a Class?
+
+A class is a blueprint for creating objects. Objects are instances of classes, each with their own data (attributes) and behavior (methods).
+🔍 When You Define a Class
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+Internally:
+
+    Python creates a class object.
+
+    The name Person points to this class object in the global namespace.
+
+    __init__ is just a regular function inside the class object.
+
+🛠 Class Object in Memory
+
+When you define class Person, Python does this:
+
+    Calls the built-in type() function to create the class.
+
+    Creates a dictionary (__dict__) to store class attributes and methods.
+
+    Registers the class in the current namespace.
+
+You can confirm:
+
+print(type(Person))        # <class 'type'>
+print(Person.__dict__)     # Shows all methods/attributes
+
+📦 When You Create an Object
+
+p = Person("Rajesh")
+
+Internally:
+
+    Python calls the class like a function: Person(...)
+
+    This calls the class’s __new__() method → creates a blank object.
+
+    Then it calls __init__() → initializes the object.
+
+    Object p is returned and stored in memory.
+
+print(type(p))  # <class '__main__.Person'>
+print(p.__dict__)  # {'name': 'Rajesh'}
+
+🧠 Behind the Scenes – Object Memory Model
+
+Each object stores:
+
+    A reference to its class (__class__)
+
+    A dictionary of its own data (__dict__)
+
+    Methods are not copied into each object; they are shared via the class.
+
+✅ Summary of Class-Object Flow
+Action	Internal Behavior
+Class defined	type() creates a class object
+Object created	__new__ allocates memory, __init__ initializes
+Object accessed	Attributes first searched in instance, then in class
+Methods called	Bound methods → self is automatically passed
+✅ Part 2: How Loops and Control Structures Work Internally
+🔁 for Loop
+
+for item in [1, 2, 3]:
+    print(item)
+
+Internally:
+
+    Python gets an iterator from the object: [1, 2, 3].__iter__()
+
+    It repeatedly calls __next__() on the iterator.
+
+    Each value is assigned to item.
+
+    Stops when StopIteration is raised.
+
+So, it’s iterator-based, not index-based like C.
+🔄 while Loop
+
+x = 3
+while x > 0:
+    print(x)
+    x -= 1
+
+Internally:
+
+    Python evaluates the condition: x > 0
+
+    If true → execute body
+
+    After each cycle → re-check condition
+
+    If false → exit loop
+
+The loop is managed by a loop block in bytecode.
+🧠 break, continue, and else (yes, else with loop!)
+
+for i in range(3):
+    if i == 1:
+        break
+else:
+    print("Loop finished normally")
+
+    break: exits the loop early
+
+    continue: skips to next iteration
+
+    else: runs only if the loop was not broken
+
+🔧 Bytecode Under the Hood
+
+You can see what Python is doing at the bytecode level:
+
+import dis
+
+def loop():
+    for i in range(2): print(i)
+
+dis.dis(loop)
+
+You’ll see:
+
+    GET_ITER
+
+    FOR_ITER
+
+    STORE_FAST
+
+    CALL_FUNCTION
+
+This is the Python Virtual Machine executing loop instructions.
+📌 Combined Summary
+Feature	What Happens Internally
+Class definition	Creates a class object using type()
+Object creation	Calls __new__ → __init__
+for loop	Uses iterator protocol (__iter__ / __next__)
+while loop	Evaluates condition every iteration
+break / continue	Alters the loop flow
+Loop else	Runs if loop completes without break

@@ -1,0 +1,54 @@
+✅ Literal: "Written Directly"
+
+This means you didn’t calculate it or fetch it from somewhere — you just typed it in.
+🔸 Example (Literal):
+
+x = 10
+
+    10 is a literal.
+
+    You typed the number 10 directly.
+
+    Python sees it and understands: "Ah, the programmer means the number ten."
+
+🔁 Reverse: "Not Written Directly" (Calculated or From Variable)
+🔹 Example 1: Expression (not a literal)
+
+x = 5 + 5
+
+Here:
+
+    5 + 5 is an expression, not a literal.
+
+    The result (10) is calculated by Python, not directly written by you.
+
+🔹 Example 2: Function call
+
+x = int("10")
+
+    "10" is a string literal.
+
+    But int("10") is an evaluation, not a literal.
+
+🔹 Example 3: Variable
+
+y = 10
+x = y
+
+    10 is a literal.
+
+    y is a variable.
+
+    x = y uses a value from memory, not a literal.
+
+🔄 Summary
+Situation	Literal?	Why?
+x = 10	✅ Yes	You typed the number directly
+x = 5 + 5	❌ No	It's calculated
+x = int("10")	❌ No	It's converted from another type
+x = y	❌ No	Getting from a variable
+x = "Hello"	✅ Yes	You typed the string directly
+🎯 Simple Definition Again:
+
+    A literal is a fixed value that you directly type into your code — not a variable, not a result, not a calculation.
+
