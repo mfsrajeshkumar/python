@@ -1,0 +1,58 @@
+unittest in python
+Unittest in Python: A Comprehensive Guide
+Introduction
+Python's unittest module is a built-in testing framework that provides a structured approach to writing and organizing unit tests. Inspired by Java's JUnit, unittest is a powerful tool for verifying the functionality of individual components of your Python code, such as functions, methods, or classes, in isolation. 
+Core concepts
+Test case: An individual unit of testing represented by a class that inherits from unittest.TestCase.
+Test fixture: Actions to set up and tear down the testing environment.
+Test suite: A collection of test cases or test suites.
+Test runner: Executes tests and reports results. 
+Writing unit tests with unittest
+Import: Import unittest.
+Test case class: Create a class inheriting from unittest.TestCase.
+Test methods: Define methods starting with test_ within the class.
+Assertions: Use assert methods to check expected outcomes.
+Run: Execute tests using the unittest test runner or a compatible tool. 
+Example
+python
+import unittest
+
+def add(a, b):
+    return a + b
+
+class TestAddFunction(unittest.TestCase):
+    def test_add_positive_numbers(self):
+        self.assertEqual(add(1, 2), 3)
+
+    def test_add_negative_numbers(self):
+        self.assertEqual(add(-1, -2), -3)
+
+    def test_add_mixed_numbers(self):
+        self.assertEqual(add(1, -2), -1)
+        self.assertEqual(add(-1, 2), 1)
+
+if __name__ == '__main__':
+    unittest.main()
+Use code with caution.
+
+To run this example (e.g., in a file named test.py), use python test.py in the terminal. 
+Assert methods
+unittest.TestCase provides various assert methods, including: 
+assertEqual(a, b)
+assertTrue(x)
+assertFalse(x)
+assertRaises(Exception, callable, *args, **kwargs)
+assertIsInstance(a, b) 
+Running tests from the command line
+Use python -m unittest to run tests from the command line. Examples: 
+Run all tests: python -m unittest discover
+Run a specific file: python -m unittest test_my_module.py
+Verbose output: python -m unittest -v 
+Benefits of using unittest
+Built-in framework.
+Structured testing approach.
+Test discovery.
+Supports test fixtures with methods like setUp() and tearDown().
+Good compatibility with other tools. 
+Conclusion
+unittest is a widely used, built-in framework that provides a structured approach to unit testing in Python, aiding in code quality and bug detection. 
